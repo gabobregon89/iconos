@@ -1,5 +1,8 @@
 package com.iconos.ciudades.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -20,8 +23,27 @@ public class PaisEntity {
     
     private String denominacion;
     
-    private int cant_habitantes;
+    @Column(name = "cant_habitantes")
+    private Long cantHabitantes;
     
-    private Double superficie;
+    private Long superficie;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "continente_id", insertable = false, updatable = false)
+    private ContinenteEntity continente;
+
+    @Column(name = "continente_id", nullable = false)
+    private Long continenteId;
+
+    @ManyToMany(
+        cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+        })
+    @JoinTable(
+        name = "iconos_pais",
+        joinColumns = @JoinColumn(name = "pais_id"),
+        inverseJoinColumns = @JoinColumn(name = "icono_id")
+    )
+    private List<IconoEntity> iconos = new ArrayList<>();
 }
