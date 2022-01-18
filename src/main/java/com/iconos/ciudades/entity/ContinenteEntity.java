@@ -2,8 +2,7 @@ package com.iconos.ciudades.entity;
 
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -22,4 +21,5 @@ public class ContinenteEntity {
 
 
 }
+
 
